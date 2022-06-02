@@ -1,0 +1,1 @@
+# amazon-shopify-comment-tool
