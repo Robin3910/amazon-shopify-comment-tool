@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Amazon reviews grab</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+</head>
+<body>
+
+amazon asin: <input class="amazon-asin" type="text">
+<br>
+product_handle: <input class="prod" type="text">
+<br>
+min-rating: <input class="min-rating" type="text">
+<br>
+number: <input class="number" type="text">
+<br>
+<button class="grab-btn">grab</button>
+<script>
+    const { ipcRenderer } = require("electron");
+    const btn = document.querySelector('.grab-btn');
+    const asin = document.querySelector('.amazon-asin');
+    const prod = document.querySelector('.prod');
+    const minRating = document.querySelector('.min-rating');
+    const number = document.querySelector('.number');
+
+    btn.onclick = function () {
+        ipcRenderer.send("sendMessage", {
+            asin: asin.value,
+            prod: prod.value,
+            minRating: minRating.value,
+            number: number.value,
+        });
+    };
+    ipcRenderer.on('receiveMessage', (event, args)=>{
+        console.log(args)
+    })
+</script>
+</body>
+</html>
